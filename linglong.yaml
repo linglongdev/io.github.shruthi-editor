@@ -1,0 +1,28 @@
+version: "1"
+
+package:
+  id: io.github.shruthi-editor
+  name: shruthi-editor
+  version: 0.1.23.1
+  kind: app
+  description: |
+    An  Editor for the Shruthi hardware synthesizer.
+
+command:
+  - /opt/apps/io.github.shruthi-editor/files/bin/shruthi-editor
+
+base: org.deepin.foundation/23.0.0
+runtime: org.deepin.Runtime/23.0.1
+
+sources:
+  - kind: git
+    url: https://github.com/Manuel-K/shruthi-editor.git
+    version: master
+    commit: 27b86cee6b3510bbda38aca54ae459f75a217143
+
+build: |
+  cd /project/linglong/sources/shruthi-editor.git
+  git apply ../../../0001-install.patch
+  qmake -makefile PREFIX=${PREFIX} LIB_INSTALL_DIR=${PREFIX}/lib/${TRIPLET}
+  make -j$(nproc)
+  make install
