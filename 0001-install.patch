@@ -1,0 +1,70 @@
+From 2052d51928d65a9b6c0027d0435c226f1ed4a925 Mon Sep 17 00:00:00 2001
+From: wjyrich <1071633242@qq.com>
+Date: Mon, 16 Sep 2024 16:12:06 +0800
+Subject: [PATCH] install
+
+---
+ shruthi-editor.pro         |  9 +++++++--
+ ui/shruthi-editor.desktop  | 11 +++++++++++
+ ui/shruthi_editor_dial.cpp |  2 +-
+ 3 files changed, 19 insertions(+), 3 deletions(-)
+ create mode 100644 ui/shruthi-editor.desktop
+
+diff --git a/shruthi-editor.pro b/shruthi-editor.pro
+index 9d2016a..c7dc0e2 100644
+--- a/shruthi-editor.pro
++++ b/shruthi-editor.pro
+@@ -103,7 +103,6 @@ CONFIG += qt
+ #DEFINES += PRE094SYSEXHEADER
+ 
+ LIBS += -L.
+-target.path = release/
+ 
+ # Comment the following line if you don't want to force the Fusion style for Qt 5
+ greaterThan(QT_MAJOR_VERSION, 4): DEFINES += FUSION
+@@ -140,4 +139,10 @@ win32 {
+ 
+ 
+ # install
+-INSTALLS += target
++target.path = $$PREFIX/bin
++desktop.files = ui/shruthi-editor.desktop
++desktop.path = $$PREFIX/share/applications/
++icons.path = $$PREFIX/share/icons/hicolor/apps/
++icons.files = ui/shruthi_editor.png
++
++INSTALLS += target desktop icons
+diff --git a/ui/shruthi-editor.desktop b/ui/shruthi-editor.desktop
+new file mode 100644
+index 0000000..1c2bb73
+--- /dev/null
++++ b/ui/shruthi-editor.desktop
+@@ -0,0 +1,11 @@
++[Desktop Entry]
++Categories=Accessibility;Qt;Utility;
++Exec=shruthi-editor
++Name=shruthi-editor
++Name[zh_CN]=shruthi-editor
++Icon=shruthi_editor
++StartupNotify=false
++Terminal=false
++Type=Application
++GenericName=shruthi-editor
++Version=1.23
+\ No newline at end of file
+diff --git a/ui/shruthi_editor_dial.cpp b/ui/shruthi_editor_dial.cpp
+index 07955b9..c761bf9 100644
+--- a/ui/shruthi_editor_dial.cpp
++++ b/ui/shruthi_editor_dial.cpp
+@@ -59,7 +59,7 @@ void ShruthiEditorDial::setLimits(const int &min, const int &max) {
+ 
+ void ShruthiEditorDial::setFormatter(QString (*formatter_)(int)) {
+     formatter = formatter_;
+-    setDisplay(dial->value());
++    setDisplay(ui->dial->value());
+ }
+ 
+ 
+-- 
+2.43.4
+
